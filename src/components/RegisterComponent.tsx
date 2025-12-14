@@ -38,7 +38,7 @@ export default function RegisterComponent() {
 
     return (
         <>
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            <div className="mt-15 mb-15 flex items-center justify-center bg-gray-50 px-4">
                 <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
                     <h2 className="text-3xl font-extrabold text-center text-[#C21E56] mb-6">
                         Create Account
@@ -110,7 +110,7 @@ export default function RegisterComponent() {
 
                         <button
                             onClick={registerHandler}
-                            className="w-full mt-4 p-3 bg-[#C21E56] text-white font-semibold rounded-xl shadow-lg
+                            className="w-full mt-4 p-3 bg-[#C21E56] text-white font-semibold rounded-lg shadow-lg
                            hover:bg-white hover:text-[#C21E56] hover:border hover:border-[#C21E56]
                            transition-colors duration-300">
                             Register Now

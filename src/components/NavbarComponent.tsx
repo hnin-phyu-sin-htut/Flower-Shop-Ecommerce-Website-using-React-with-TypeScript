@@ -1,8 +1,18 @@
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
+import {isLoggedIn, logout} from "../service/AuthService.ts";
 
 export default function NavbarComponent() {
   const [open, setOpen] = useState(false);
+
+  const isLogin = isLoggedIn();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    logout();
+    navigate("/login");
+    window.location.reload();
+  }
 
   return (
       <header className="bg-[#F4C2C2] w-full sticky top-0 z-50">
@@ -41,23 +51,31 @@ export default function NavbarComponent() {
                 </li>
             ))}
 
-            <li className="text-center lg:text-left">
-              <Link to="/login">
-                <span className="inline-block text-white bg-[#C21E56] border-2 border-transparent px-6 py-2 rounded
-                  transition duration-300 hover:bg-transparent hover:border-[#C21E56] hover:text-[#C21E56]">
-                  Login
-                </span>
-              </Link>
-            </li>
+            {
+                !isLogin && (
+                    <li className="text-center lg:text-left">
+                      <Link to="/login">
+                        <span className="inline-block text-white bg-[#C21E56] border-2 border-transparent px-6 py-2 rounded
+                          transition duration-300 hover:bg-transparent hover:border-[#C21E56] hover:text-[#C21E56]">
+                          Login
+                        </span>
+                      </Link>
+                    </li>
+                )
+            }
 
-            <li className="text-center lg:text-left">
-              <Link to="/register">
-                <span className="inline-block text-white bg-[#C21E56] border-2 border-transparent px-6 py-2 rounded
-                  transition duration-300 hover:bg-transparent hover:border-[#C21E56] hover:text-[#C21E56]">
-                  Register
-                </span>
-              </Link>
-            </li>
+            {
+                isLogin && (
+                    <li className="text-center lg:text-left">
+                      <Link to="/logout">
+                        <span onClick={logoutHandler} className="inline-block text-white bg-[#C21E56] border-2 border-transparent px-6 py-2 rounded
+                          transition duration-300 hover:bg-transparent hover:border-[#C21E56] hover:text-[#C21E56]">
+                          Logout
+                        </span>
+                      </Link>
+                    </li>
+                )
+            }
           </ul>
         </nav>
       </header>
