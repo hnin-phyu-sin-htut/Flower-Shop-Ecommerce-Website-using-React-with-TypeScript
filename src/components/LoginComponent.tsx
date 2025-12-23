@@ -1,7 +1,7 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import type {LoginDto} from "../model/LoginDto.ts";
 import {login, setLoggedInUserName, setRoleName, setToken} from "../service/AuthService.ts";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function LoginComponent() {
 
@@ -12,6 +12,18 @@ export default function LoginComponent() {
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const navigator = useNavigate();
+
+    const location = useLocation();
+    const [infoMessage, setInfoMessage] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (location.state) {
+            if ((location.state).infoMessage) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
+                setInfoMessage((location.state).infoMessage);
+            }
+        }
+    }, [location.state]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,9 +47,11 @@ export default function LoginComponent() {
                     const status = err.response.status;
                     if(status === 401 || message.toLowerCase().includes('invalid')) {
                         setErrorMessage("Invalid username or password.");
+                        setLoginDto({...loginDto, username: "", password: ""});
                     }
                 }else{
-                    setErrorMessage("Login failed! Please try again.")
+                    setErrorMessage("Login failed! Please try again.");
+                    setLoginDto({...loginDto, username: "", password: ""});
                 }
             }
         );
@@ -51,8 +65,17 @@ export default function LoginComponent() {
                         Login
                     </h2>
                     {
+                        infoMessage && (
+                            <p className="text-blue-500 text-lg text-center mb-2">
+                                {infoMessage}
+                            </p>
+                        )
+                    }
+                    {
                         errorMessage && (
-                            <p className="text-red-600 text-lg text-center mb-4">{errorMessage}</p>
+                            <p className="text-red-600 text-lg text-center mb-4">
+                                {errorMessage}
+                            </p>
                         )
                     }
                     <div className="flex flex-col gap-5">

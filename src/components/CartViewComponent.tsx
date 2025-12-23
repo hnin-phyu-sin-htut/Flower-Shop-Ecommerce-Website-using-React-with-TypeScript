@@ -45,10 +45,13 @@ export default function CartViewComponent() {
                                 <img
                                     src={item.image}
                                     alt={item.name}
-                                    className="w-16 h-16 rounded-xl object-cover border"/>
-                                <span className="font-medium text-gray-800">
-                                    {item.name}
-                                </span>
+                                    className="w-20 h-20 rounded-xl object-contain border"/>
+                            </td>
+
+                            <td className="px-6 py-4">
+                              <span className="px-4 py-1 rounded-full bg-[#F4C2C2] text-[#C21E56] font-semibold text-sm">
+                                {item.name}
+                              </span>
                             </td>
 
                             <td className="px-6 py-4 text-gray-600">

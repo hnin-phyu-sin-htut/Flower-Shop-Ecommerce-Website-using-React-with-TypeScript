@@ -3,6 +3,17 @@ import type {RegisterDto} from "../model/RegisterDto.ts";
 import {register} from "../service/AuthService.ts";
 import {useNavigate} from "react-router-dom";
 
+function extracted(setRegisterDto: (value: (((prevState: RegisterDto) => RegisterDto) | RegisterDto)) => void) {
+    setRegisterDto({
+        username: "",
+        password: "",
+        email: "",
+        phone: "",
+        address: "",
+        userType: ""
+    });
+}
+
 export default function RegisterComponent() {
 
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -31,14 +42,7 @@ export default function RegisterComponent() {
             .then(res => {
                 if(res.status === 200 || res.status === 201) {
                     setSuccessMessage(`${finalDto.username} successfully registered.`);
-                    setRegisterDto({
-                        username: "",
-                        password: "",
-                        email: "",
-                        phone: "",
-                        address: "",
-                        userType: ""
-                    });
+                    extracted(setRegisterDto);
                     setTimeout(() => {
                         setSuccessMessage(null);
                         navigator('/login');
@@ -49,9 +53,11 @@ export default function RegisterComponent() {
                 if(err.response){
                     if(err.response.status === 401){
                         setErrorMessage("User already exists!");
+                        extracted(setRegisterDto);
                     }
                 }else{
                     setErrorMessage("Registration failed!");
+                    extracted(setRegisterDto);
                 }
             });
         setRegisterDto(finalDto);

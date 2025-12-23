@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import type {HomeFlower} from "../model/HomeFlower.ts";
 
 import {listAllHomeProducts} from "../service/ProductService.ts";
+import {Link} from "react-router-dom";
 
 export default function HomeComponent() {
 
@@ -47,11 +48,13 @@ export default function HomeComponent() {
                                     ${flower.price.toFixed(2)}
                                 </p>
 
-                                <button className="text-white bg-[#C21E56] border-2 border-transparent
-                                px-3 py-2 rounded whitespace-nowrap transition duration-300 hover:bg-transparent
-                                hover:border-[#C21E56] hover:text-[#C21E56] cursor-pointer">
-                                    Add To Cart
-                                </button>
+                                <Link to="/products">
+                                    <button className="text-white bg-[#C21E56] border-2 border-transparent
+                                    px-3 py-2 rounded whitespace-nowrap transition duration-300 hover:bg-transparent
+                                    hover:border-[#C21E56] hover:text-[#C21E56] cursor-pointer">
+                                        Learn More
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     ))}

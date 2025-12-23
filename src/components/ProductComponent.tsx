@@ -2,17 +2,40 @@ import {useContext, useEffect, useState} from "react";
 import type {CartItem} from "../model/CartItem.ts";
 import {CartContext} from "../context/CartContext.ts";
 import {listAllProducts} from "../service/ProductService.ts";
+import {IoMdCheckmarkCircleOutline} from "react-icons/io";
+import {getRoleName, isLoggedIn} from "../service/AuthService.ts";
+import {useNavigate} from "react-router-dom";
 
 export default function ProductComponent() {
 
     const [products, setProducts] = useState<CartItem[]>([]);
     const {addItem} = useContext(CartContext);
+    const [addedQuantity, setAddedQuantity] = useState<Record<number, number>>({});
+    const userRole = getRoleName();
+    const isCustomer = userRole === "ROLE_CUSTOMER";
+    const navigator = useNavigate();
 
     useEffect(() => {
         listAllProducts()
             .then(res => setProducts(res.data))
             .catch(err => console.error(err));
     }, []);
+
+    const addedQuantityHandler = (item: CartItem) => {
+        addItem(item);
+        setAddedQuantity(prev => ({
+            ...prev,
+            [item.id]: (prev[item.id] || 0) + 1,
+        }));
+
+        setTimeout(() => {
+            setAddedQuantity((prev) => ({
+                ...prev,
+                [item.id]: 0,
+            }));
+        }, 3000);
+    };
+
     return (
         <>
             <div className="container mx-auto mt-10 mb-10">
@@ -23,8 +46,8 @@ export default function ProductComponent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4
                 sm:px-6 md:px-10 lg:px-16">
 
-                    {products && products.map(item => (
-                        <div key={item.id} className="card w-full rounded-xl flex flex-col items-center p-6
+                    {products.map(item => (
+                        <div key={item.id} className="card relative w-full rounded-xl flex flex-col items-center p-6
                         border-2 border-[#C21E56] shadow-md bg-white">
 
                             <div className="w-full">
@@ -46,12 +69,26 @@ export default function ProductComponent() {
                                 </p>
 
                                 <button className="text-white bg-[#C21E56] border-2 border-transparent
-                                px-3 py-2 rounded whitespace-nowrap transition duration-300 hover:bg-transparent
-                                hover:border-[#C21E56] hover:text-[#C21E56] cursor-pointer"
-                                onClick={() => addItem(item)}>
+                                  px-3 py-2 rounded whitespace-nowrap transition duration-300 hover:bg-transparent
+                                  hover:border-[#C21E56] hover:text-[#C21E56] cursor-pointer"
+                                onClick={() => {
+                                    if(!isCustomer || !isLoggedIn()) {
+                                        navigator("/login", { state:
+                                                { infoMessage: "Please login to purchase flowers." } });
+                                        return;
+                                    }
+                                    addedQuantityHandler(item);
+                                }}>
                                     Add To Cart
                                 </button>
                             </div>
+                            {addedQuantity[item.id] > 0 && isLoggedIn() && isCustomer && (
+                                <div className="absolute flex items-center bottom-0 text-[#C21E56]
+                                 px-4 py-2 rounded text-md">
+                                    <IoMdCheckmarkCircleOutline size={24} className="me-1" />
+                                    Added {addedQuantity[item.id]} product (s)
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
