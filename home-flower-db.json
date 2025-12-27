@@ -1,0 +1,16 @@
+{
+  "home-flowers" : [
+    { "id": 1, "name": "Red Rose", "price": 15.99, "image": "/images/red-rose.png" },
+    { "id": 2, "name": "White Lily", "price": 18.50, "image": "/images/white-lily.png" },
+    { "id": 3, "name": "Sunflower", "price": 12.00, "image": "/images/sunflower.png" },
+    { "id": 4, "name": "Purple Orchid", "price": 25.75, "image": "/images/purple-orchid.png" },
+    { "id": 5, "name": "Pink Tulip", "price": 14.20, "image": "/images/pink-tulip.png" },
+    { "id": 6, "name": "Pink Carnation", "price": 10.99, "image": "/images/pink-carnation.png" },
+    { "id": 7, "name": "Lavender", "price": 9.50, "image": "/images/lavender.png" },
+    { "id": 8, "name": "Gardenia Bridal", "price": 22.80, "image": "/images/gardenia-bridal.png" },
+    { "id": 9, "name": "Daisy", "price": 8.75, "image": "/images/daisy.png" },
+    { "id": 10, "name": "Pink Mini Snowball", "price": 19.99, "image": "/images/pink-mini-snowball.png" },
+    { "id": 11, "name": "Elegant Fresh Peony", "price": 16.30, "image": "/images/elegant-fresh-peony.png" },
+    { "id": 12, "name": "Purple Hydrangea", "price": 23.40, "image": "/images/purple-hydrangea.png" }
+  ]
+}
