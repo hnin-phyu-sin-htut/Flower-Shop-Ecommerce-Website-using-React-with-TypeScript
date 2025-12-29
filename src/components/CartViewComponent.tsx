@@ -21,7 +21,8 @@ export default function CartViewComponent() {
         subTotal: Number(item.price ?? 0) * item.quantity
     }));
 
-    const totalPrice = itemsWithSubTotal.reduce((sum, item) => sum + item.subTotal, 0);
+    const totalPrice = itemsWithSubTotal.reduce((sum, item) =>
+        sum + item.subTotal, 0);
 
     const checkoutHandler = () => {
         if (items.length === 0) return;
@@ -32,7 +33,7 @@ export default function CartViewComponent() {
             subTotal: 0,
             id: Date.now(),
             orderNumber: `TEMP-${Date.now()}`,
-            orderDate: new Date().toISOString(),
+            orderDate: new Date().toLocaleString(),
             products: itemsWithSubTotal.map(item => ({
                 id: item.id,
                 productName: item.name,
@@ -131,7 +132,7 @@ export default function CartViewComponent() {
                                 </td>
                                 <td className="text-center py-2">
                                         <span className="px-3 py-1 text-[#C21E56] font-semibold text-sm sm:text-base">
-                                            ${item.price.toFixed(2)}
+                                            {item.price.toLocaleString()} MMK
                                         </span>
                                 </td>
                                 <td className="py-2">
@@ -154,7 +155,7 @@ export default function CartViewComponent() {
                                     </div>
                                 </td>
                                 <td className="text-center font-semibold py-2 text-[#C21E56]">
-                                    ${item.subTotal.toFixed(2)}
+                                    {item.subTotal.toLocaleString()} MMK
                                 </td>
                             </tr>
                         ))
@@ -165,7 +166,7 @@ export default function CartViewComponent() {
                                 Total
                             </td>
                             <td className="px-4 py-2 text-center text-[#C21E56]">
-                                ${totalPrice.toFixed(2)}
+                                {totalPrice.toLocaleString()} MMK
                             </td>
                         </tr>
                     )}
@@ -193,7 +194,7 @@ export default function CartViewComponent() {
                     <div className="text-center mb-4">
                         <p>Order ID: {orderInfo.id}</p>
                         <p>Order Number: {orderInfo.orderNumber}</p>
-                        <p>Date: {new Date(orderInfo.orderDate).toLocaleString()}</p>
+                        <p>Date: {new Date(orderInfo.orderDate).toLocaleDateString()}</p>
                     </div>
 
                     <div className="overflow-x-auto mb-4">
@@ -210,7 +211,7 @@ export default function CartViewComponent() {
                                 <tr key={p.id ?? idx} className="text-center hover:bg-gray-50">
                                     <td className="px-4 py-2 text-[#C21E56]">{p.name}</td>
                                     <td className="px-4 py-2 text-[#C21E56]">{p.quantity}</td>
-                                    <td className="px-4 py-2 text-[#C21E56]">${p.subTotal.toFixed(2)}</td>
+                                    <td className="px-4 py-2 text-[#C21E56]">{p.subTotal.toLocaleString()} MMK</td>
                                 </tr>
                             ))}
                             <tr className="font-bold border-t">
@@ -218,7 +219,7 @@ export default function CartViewComponent() {
                                     Total Amount
                                 </td>
                                 <td className="px-4 py-2 text-center text-[#C21E56]">
-                                    ${totalPrice.toFixed(2)}
+                                    {totalPrice.toLocaleString()} MMK
                                 </td>
                             </tr>
                             </tbody>
@@ -231,7 +232,8 @@ export default function CartViewComponent() {
                             <button
                                 onClick={confirmOrder}
                                 disabled={loading}
-                                className="px-6 py-3 font-semibold rounded-full bg-white text-[#C21E56] shadow-lg transition cursor-pointer hover:bg-[#C21E56] hover:text-white hover:border hover:border-white"
+                                className="px-6 py-3 font-semibold rounded-full bg-white text-[#C21E56] shadow-lg
+                                transition cursor-pointer hover:bg-[#C21E56] hover:text-white hover:border hover:border-white"
                             >
                                 {loading ? "Confirming..." : "Confirm Order"}
                             </button>

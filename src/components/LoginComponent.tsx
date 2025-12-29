@@ -39,7 +39,7 @@ export default function LoginComponent() {
             }else if('ROLE_CUSTOMER' === roleName){
                 navigator('/');
             }
-            window.location.reload();
+            // window.location.reload();
         }).catch(
             err => {
                 if(err.response){

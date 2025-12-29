@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import type { CartItem } from "../model/CartItem.ts";
 import { CartContext } from "../context/CartContext.ts";
-import { listAllProducts } from "../service/ProductService.ts";
+import {fetchAllProducts} from "../service/ProductService.ts";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { getRoleName, isLoggedIn } from "../service/AuthService.ts";
 import { useNavigate } from "react-router-dom";
+import type {ProductDto} from "../model/ProductDto.ts";
 
 export default function ProductComponent() {
-    const [products, setProducts] = useState<CartItem[]>([]);
+    const [products, setProducts] = useState<ProductDto[]>([]);
     const { addItem } = useContext(CartContext);
     const [addedQuantity, setAddedQuantity] = useState<Record<number, number>>({});
     const userRole = getRoleName();
@@ -16,10 +17,14 @@ export default function ProductComponent() {
     const loggedIn = isLoggedIn();
 
     useEffect(() => {
-        listAllProducts()
+        fetchAllProducts()
             .then(res => setProducts(res.data))
-            .catch(err => console.error(err));
-    }, []);
+            .catch(err => {
+                if (err.response?.status === 401) {
+                    navigator("/login");
+                }
+            });
+    }, [navigator]);
 
     const addedQuantityHandler = (item: CartItem) => {
         addItem(item);
@@ -42,7 +47,8 @@ export default function ProductComponent() {
                 All Products
             </h1>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 sm:px-6 md:px-10 lg:px-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8
+            px-4 sm:px-6 md:px-10 lg:px-16">
                 {products.map(item => (
                     <div
                         key={item.id}
@@ -51,7 +57,7 @@ export default function ProductComponent() {
                     >
                         <div className="w-full">
                             <img
-                                src={item.image && item.image !== "" ? item.image : "/images/no-image.png"}
+                                src={item.image ?? "/images/no-image.png"}
                                 alt={item.name}
                                 className="rounded-xl w-full h-48 object-contain"
                             />
@@ -61,15 +67,17 @@ export default function ProductComponent() {
                             {item.name}
                         </h2>
 
-                        <div className="flex flex-row items-center justify-around mb-2 w-full">
+                        <div className="flex flex-wrap flex-col sm:flex-row items-center sm:justify-around gap-2 w-full mb-2">
+
                             <p className="text-lg font-bold text-[#C21E56]">
-                                ${Number(item.price ?? 0).toFixed(2)}
+                                {item.price.toLocaleString() ?? 0} MMK
                             </p>
 
                             <button
                                 className="text-white bg-[#C21E56] border-2 border-transparent
-                                  px-3 py-2 rounded whitespace-nowrap transition duration-300 hover:bg-transparent
-                                  hover:border-[#C21E56] hover:text-[#C21E56] cursor-pointer"
+                                rounded whitespace-nowrap transition duration-300 cursor-pointer
+                                hover:bg-transparent hover:border-[#C21E56] hover:text-[#C21E56]
+                                w-full sm:w-auto px-3 py-2"
                                 onClick={() => {
                                     if (!isCustomer || !loggedIn) {
                                         navigator("/login", {

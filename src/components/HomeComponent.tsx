@@ -45,7 +45,7 @@ export default function HomeComponent() {
 
                             <div className="flex flex-row items-center justify-around mb-2 w-full">
                                 <p className="text-lg font-bold text-[#C21E56]">
-                                    ${flower.price.toFixed(2)}
+                                    {flower.price.toLocaleString()} MMK
                                 </p>
 
                                 <Link to="/products">
