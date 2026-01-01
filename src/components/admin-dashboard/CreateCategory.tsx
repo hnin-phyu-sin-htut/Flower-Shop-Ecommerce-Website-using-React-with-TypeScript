@@ -29,7 +29,7 @@ export default function CreateCategory() {
 
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border-2 border-[#F4C2C2] p-8 mt-[-15%]">
+            <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border-2 border-[#F4C2C2] p-8">
                 <h2 className="text-3xl font-bold text-[#C21E56] mb-8 text-center">
                     Create Category
                 </h2>

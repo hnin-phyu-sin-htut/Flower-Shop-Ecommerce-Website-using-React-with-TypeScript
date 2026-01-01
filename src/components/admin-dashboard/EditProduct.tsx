@@ -12,6 +12,8 @@ export default function EditProduct() {
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
 
+    const [searchTerm, setSearchTerm] = useState("");
+
     const loadProducts = () => {
         fetchAllProducts()
             .then(res => setProducts(res.data))
@@ -74,6 +76,11 @@ export default function EditProduct() {
             });
     };
 
+    const filteredProducts = products.filter(p =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.categoryName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="p-6 text-[#C21E56]">
             <h1 className="text-4xl font-bold text-center mb-5">
@@ -81,6 +88,16 @@ export default function EditProduct() {
             </h1>
 
             <div className="max-w-7xl mx-auto bg-white rounded-3xl p-8">
+                <div className="mb-6 flex justify-center">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        placeholder="Search by flower name or category..."
+                        className="w-full max-w-md px-5 py-3 border-2 rounded-full
+                        focus:outline-none focus:ring-2 focus:ring-[#C21E56]"
+                    />
+                </div>
                 <div className="overflow-x-auto border rounded-xl">
                     <table className="min-w-full divide-y">
                         <thead className="bg-[#F4C2C2]">
@@ -95,7 +112,7 @@ export default function EditProduct() {
                         </thead>
 
                         <tbody className="divide-y">
-                        {products.map(p => (
+                        {filteredProducts.map(p => (
                             <tr key={p.id} className="hover:bg-pink-50 transition">
                                 <td className="px-6 py-4 text-center">{p.id}</td>
                                 <td className="px-6 py-4 font-semibold text-center">{p.name}</td>

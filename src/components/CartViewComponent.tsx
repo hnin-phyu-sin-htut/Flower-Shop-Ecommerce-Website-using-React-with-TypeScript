@@ -121,7 +121,7 @@ export default function CartViewComponent() {
                                 <td className="text-center text-[#C21E56] py-2">{item.id}</td>
                                 <td className="flex justify-center py-2">
                                     <img
-                                        src={item.image ? `http://localhost:8080${item.image}` : "/image/no-image.png"}
+                                        src={item.image ? `http://localhost:8080${item.image}` : "/images/no-images.png"}
                                         alt={item.name}
                                         className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-contain border"
                                     />

@@ -1,16 +1,12 @@
 {
   "home-flowers" : [
-    { "id": 1, "name": "Red Rose", "price": 25000, "image": "/images/red-rose.png" },
-    { "id": 2, "name": "White Lily", "price": 31500, "image": "/images/white-lily.png" },
-    { "id": 3, "name": "Sunflower", "price": 16000, "image": "/images/sunflower.png" },
-    { "id": 4, "name": "Purple Orchid", "price": 45000, "image": "/images/purple-orchid.png" },
-    { "id": 5, "name": "Pink Tulip", "price": 14000, "image": "/images/pink-tulip.png" },
-    { "id": 6, "name": "Pink Carnation", "price": 26000, "image": "/images/pink-carnation.png" },
-    { "id": 7, "name": "Lavender", "price": 21000, "image": "/images/lavender.png" },
-    { "id": 8, "name": "Gardenia Bridal", "price": 52000, "image": "/images/gardenia-bridal.png" },
-    { "id": 9, "name": "Daisy", "price": 12000, "image": "/images/daisy.png" },
-    { "id": 10, "name": "Pink Mini Snowball", "price": 31000, "image": "/images/pink-mini-snowball.png" },
-    { "id": 11, "name": "Elegant Fresh Peony", "price": 42000, "image": "/images/elegant-fresh-peony.png" },
-    { "id": 12, "name": "Purple Hydrangea", "price": 37000, "image": "/images/purple-hydrangea.png" }
+    { "id": 1, "name": "Blush Garden Bouquet", "image": "/images/blush-garden-bouquet.png" },
+    { "id": 2, "name": "Golden Hour Blooms", "image": "/images/golden-hour-blooms.png" },
+    { "id": 3, "name": "Cloud Nine Bouquet", "image": "/images/no-image.png" },
+    { "id": 4, "name": "Classic Red Rose Bundle", "image": "/images/soft-pastel-dream.png" },
+    { "id": 5, "name": "Pink Romance Roses", "image": "/images/no-image.png" },
+    { "id": 6, "name": "Luxury Long-Stem Roses", "image": "/images/no-image.png" },
+    { "id": 7, "name": "Valentine Red Rose Classic", "image": "/images/no-image.png" },
+    { "id": 8, "name": "Timeless Bridal Flowers", "image": "/images/no-image.png" }
   ]
 }
